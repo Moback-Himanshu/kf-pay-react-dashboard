@@ -1,13 +1,32 @@
-import { configureStore } from '@reduxjs/toolkit'
-import themeSlice from './slices/themeSlice';
+import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
+import storage from 'redux-persist/lib/storage';
+import { combineReducers } from 'redux';
+import { persistReducer, persistStore } from 'redux-persist';
+import themeReducer from './slices/themeSlice';
+
+
+const reducers = combineReducers({
+  theme: themeReducer
+});
+
+const persistConfig = {
+  key: 'root',
+  storage,
+  whitelist: ['theme'],
+};
+
+const persistedReducer = persistReducer(persistConfig, reducers);
+
+const isDevelopment = process.env.NODE_ENV !== 'production' && typeof window === 'object';
 
 export const store = configureStore({
-  reducer: {
-	theme:themeSlice,
-  },
-})
+  reducer: persistedReducer,
+  devTools: isDevelopment,
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware({ immutableCheck: false }),
+});
 
-// Infer the `RootState` and `AppDispatch` types from the store itself
-export type RootState = ReturnType<typeof store.getState>
-// Inferred type: {posts: PostsState, comments: CommentsState, users: UsersState}
-export type AppDispatch = typeof store.dispatch
+
+export const persistor = persistStore(store)
+export type AppDispatch = typeof store.dispatch;
+export type RootState = ReturnType<typeof store.getState>;
+export type AppThunk<ReturnType = void> = ThunkAction<ReturnType, RootState, unknown, Action<string>>;
