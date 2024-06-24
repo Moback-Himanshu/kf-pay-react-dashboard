@@ -1,12 +1,13 @@
 import GlobalButton from "../../../components/Button";
 import QuickToolsCard from "../../../components/QuickToolCard";
 import GlobalTextField from "../../../components/TextField";
+import MyMarketCard from "../../../components/MyMarketCard";
 
 const Login = () => {
   return (
     <div>
         <br/>
-        <QuickToolsCard />
+        <MyMarketCard />
       {/* <GlobalTextField
         type="text"
         defaultValue="Username"

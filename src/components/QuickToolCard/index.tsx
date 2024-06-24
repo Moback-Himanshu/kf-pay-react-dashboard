@@ -13,7 +13,7 @@ import {
 import PeerGroup from "../../assets/images/peer-groups.svg";
 import CustomGrade from "../../assets/images/custom-grades.svg";
 
-export default function DividerStack() {
+const QuickToolsCard = (props: any): JSX.Element => {
   return (
     <Card>
       <CardHeader title="QUICK TOOLS" />
@@ -77,3 +77,4 @@ export default function DividerStack() {
     </Card>
   );
 }
+export default QuickToolsCard
