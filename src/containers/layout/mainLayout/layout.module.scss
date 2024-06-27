@@ -1,0 +1,13 @@
+.layoutContainer {
+    display: flex;
+    flex-direction: column;
+    background:url(../../../assets/images/banner.png) no-repeat, #32B561;
+  }
+  
+  .content {
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+  }
+  

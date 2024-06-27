@@ -12,11 +12,13 @@ import {
 } from "@mui/material";
 import PeerGroup from "../../assets/images/peer-groups.svg";
 import CustomGrade from "../../assets/images/custom-grades.svg";
+import SavedQueries from "../../assets/images/saved-queries-icon.svg";
 
 const QuickToolsCard = (props: any): JSX.Element => {
   return (
+    
     <Card>
-      <CardHeader title="QUICK TOOLS" />
+      <CardHeader titleTypographyProps={{variant:'body1' }} title="QUICK TOOLS" sx={{marginLeft:'15px'}}/>
       <Divider />
       <CardContent>
         <Grid
@@ -27,11 +29,11 @@ const QuickToolsCard = (props: any): JSX.Element => {
         >
           <Grid item xs={12} sm={3}>
             <Stack spacing={2}>
-              <Box sx={{ display: "flex", justifyContent: "center" }}>
-                <Avatar src={PeerGroup} variant="square" />
+              <Box sx={{display: "flex", justifyContent: "center" }}>
+                <Avatar src={PeerGroup} variant="square" sx={{width:'18px', height:'18px'}}/>
               </Box>
               <Stack spacing={1}>
-                <Typography align="center" variant="h6" color="#2890d0">
+                <Typography align="center" variant="body1" color="#2890d0">
                   My Peer groups
                 </Typography>
                 <Typography align="center" variant="body2">
@@ -44,10 +46,10 @@ const QuickToolsCard = (props: any): JSX.Element => {
           <Grid item xs={12} sm={3}>
             <Stack spacing={2}>
               <Box sx={{ display: "flex", justifyContent: "center" }}>
-                <Avatar src={CustomGrade} variant="square" />
+                <Avatar src={CustomGrade} variant="square" sx={{width:'22px', height:'18px'}}/>
               </Box>
               <Stack spacing={1}>
-                <Typography align="center" variant="h6" color="#2890d0">
+                <Typography align="center" variant="body1" color="#2890d0">
                   My Custom Grades
                 </Typography>
                 <Typography align="center" variant="body2">
@@ -60,10 +62,10 @@ const QuickToolsCard = (props: any): JSX.Element => {
           <Grid item xs={12} sm={3}>
             <Stack spacing={2}>
               <Box sx={{ display: "flex", justifyContent: "center" }}>
-                <Avatar src={PeerGroup} variant="square" />
+                <Avatar src={SavedQueries} variant="square"  sx={{width:'22px', height:'18px'}}/>
               </Box>
               <Stack spacing={1}>
-                <Typography align="center" variant="h6" color="#2890d0">
+                <Typography align="center" variant="body1" color="#2890d0">
                   My Saved Queries
                 </Typography>
                 <Typography align="center" variant="body2">

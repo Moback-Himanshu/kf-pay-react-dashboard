@@ -25,8 +25,8 @@ const GlobalDropdown = (props: IGlobalDropdown): JSX.Element => {
   // };
 
   return (
-    <Box>
-      <FormControl variant="standard" fullWidth>
+    <Box sx={{ display: "flex"}}>
+      <FormControl variant="standard" fullWidth={props.fullWidth}>
         {/* <InputLabel id="demo-simple-select-label">Select</InputLabel> */}
         <Select
           labelId="demo-simple-select-standard-label"

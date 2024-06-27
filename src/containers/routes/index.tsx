@@ -5,16 +5,20 @@ import {
   Route,
   Navigate,
 } from "react-router-dom";
-import  Login  from "../screens/Login/login"
+import  Login  from "../screens/login/login"
+import Layout from '../layout/mainLayout';
+import Dashboard from "../screens/dashboard";
 
 const RoutesList = () => {
 
   return (
     <Router>
+      <Layout>
       <Routes>
       <Route path="/" element={<Login />} />
+      <Route path="/dashboard" element={<Dashboard />} />
       <Route path="*" element={<Navigate to="/error" replace />} />
-      </Routes>
+      </Routes></Layout>
     </Router>
   );
 };

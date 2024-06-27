@@ -1,0 +1,37 @@
+import { useState } from 'react';
+import { Doughnut } from 'react-chartjs-2';
+import {Chart, ArcElement, Tooltip, Legend, Title} from 'chart.js';
+
+const CircularProgress = () => {
+    Chart.register(ArcElement, Tooltip, Legend, Title);
+    Chart.defaults.plugins.tooltip.backgroundColor = 'rgb(0, 0, 156)';
+    Chart.defaults.plugins.legend.position = 'right';
+    Chart.defaults.plugins.legend.title.display = true;
+    Chart.defaults.plugins.legend.title.text = '60 of 100 Done';
+    // Chart.defaults.plugins.legend.title.font = 'Helvetica Neue';
+    
+    const data = {
+      labels: [
+        'processed',
+        'pending'
+      ],
+      datasets: [{
+        data: [60,40],
+        backgroundColor: [
+          '#06C0B3',
+          'rgb(204, 223, 243)'
+        ],
+        borderWidth: 1,
+        radius: '100%'   
+      }]
+    };
+
+  return (
+    <div>
+  
+    <Doughnut data={data} />
+</div>
+  );
+};
+
+export default CircularProgress;

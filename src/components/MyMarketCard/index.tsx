@@ -10,12 +10,21 @@ import {
   MenuItem,
   CardContent,
   Typography,
+  IconButton,
   CircularProgress,
 } from "@mui/material";
 import HelpIcon from "../../assets/images/help.svg";
 import UploadIcon from "../../assets/images/upload.svg";
+import NetworkIcon from "../../assets/images/network.svg";
+import ComparatioIcon from "../../assets/images/compa-ratio.svg";
 import GlobalSwitchButton from "../SwitchButton/Index";
 import GlobalDropdown from "../Dropdown";
+import CircularChart from "./CircularProgress";
+
+export const data = [
+  {name:"Mark", value: 90},
+  {name:"Robert", value: 12},
+]
 
 const MyMarketCard = (props: any): JSX.Element => {
   const [loading, setLoading] = useState(false);
@@ -29,17 +38,17 @@ const MyMarketCard = (props: any): JSX.Element => {
     setDropdownValue(event.target.value);
   };
   return (
-    <Card>
+    <Card sx={{p:2}}>
       <Grid
         container
         spacing={1}
         alignItems="center"
         justifyContent="space-evenly"
       >
-        <Grid item xs={12} sm={3}>
-          <CardHeader title="MY MARKETS" />
+        <Grid item xs={12} sm={4} >
+          <CardHeader titleTypographyProps={{variant:'body1' }} title="MY MARKETS" />
         </Grid>
-        <Grid item xs={12} sm={3}>
+        <Grid item xs={12} sm={4}>
           <Box sx={{ display: "flex", alignItems: "center" }}>
             <GlobalSwitchButton
               loading={loading}
@@ -54,7 +63,7 @@ const MyMarketCard = (props: any): JSX.Element => {
           </Box>
         </Grid>
         <Grid item xs={12} sm={3}>
-          <GlobalDropdown onChange={handleChange} dropdownValue={dropdownValue}>
+          <GlobalDropdown onChange={handleChange} dropdownValue={dropdownValue} fullWidth={true}>
             <MenuItem value={1}>Markets</MenuItem>
             <MenuItem value={2}>Reports By Type</MenuItem>
           </GlobalDropdown>
@@ -70,19 +79,33 @@ const MyMarketCard = (props: any): JSX.Element => {
         >
           <Grid item xs={12} sm={5}>
             <Stack spacing={2}>
-            <Box sx={{ display: "flex", justifyContent: "right" }}>
-            <CircularProgress
-        variant="determinate"
-        sx={{
-          color: "#06C0B3",
-        }}
-        size={180}
-        thickness={4}
-        {...props}
-        value={90}
-      />
-            </Box>
-
+              <Box
+                sx={{
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              >
+                <CircularChart data={data} width={250} height={250}/>
+                {/* <CircularProgress
+                  variant="determinate"
+                  sx={{
+                    color: "#06C0B3",
+                    position: "absolute",
+                  }}
+                  size={180}
+                  thickness={4}
+                  {...props}
+                  value={"90"}
+                />
+                <IconButton onClick={() => alert("Hiii")}>
+                  <Avatar
+                    sx={{ height: "27px", width: "76px" }}
+                    src={ComparatioIcon}
+                    variant="square"
+                  />
+                </IconButton> */}
+              </Box>
             </Stack>
           </Grid>
           <Divider
@@ -151,7 +174,140 @@ const MyMarketCard = (props: any): JSX.Element => {
             </Stack>
           </Grid>
         </Grid>
+        <Divider />
+        <br />
+        <Grid
+          container
+          spacing={1}
+          alignItems="center"
+          justifyContent="space-evenly"
+        >
+          <Grid item xs={12} sm={3}>
+            <Stack spacing={2}>
+              <Box sx={{ display: "flex", justifyContent: "center" }}>
+                <Stack spacing={1} alignItems="center">
+                  <Typography variant="body1" color="#2890d0">
+                    United States of America
+                  </Typography>
+                  <br />
+                  <CircularProgress
+                    variant="determinate"
+                    sx={{
+                      color: "#06C0B3",
+                    }}
+                    size={180}
+                    thickness={4}
+                    {...props}
+                    value={90}
+                  />
+                  <br />
+                  <Typography variant="body2">Overall Compa -ratio</Typography>
+                  <br />
+                </Stack>
+              </Box>
+            </Stack>
+          </Grid>
+          <Divider
+            orientation="vertical"
+            flexItem
+            sx={{ position: "relative" }}
+          />
+          <Grid item xs={12} sm={3}>
+            <Stack spacing={2}>
+              <Box sx={{ display: "flex", justifyContent: "center" }}>
+                <Stack spacing={1} alignItems="center">
+                  <Typography variant="body1" color="#2890d0">
+                    Canada
+                  </Typography>
+                  <br />
+                  <CircularProgress
+                    variant="determinate"
+                    sx={{
+                      color: "#06C0B3",
+                    }}
+                    size={180}
+                    thickness={4}
+                    {...props}
+                    value={90}
+                  />
+                  <br />
+                  <Typography variant="body2">Overall Compa -ratio</Typography>
+                  <br />
+                </Stack>
+              </Box>
+            </Stack>
+          </Grid>
+          <Divider
+            orientation="vertical"
+            flexItem
+            sx={{ position: "relative" }}
+          />
+          <Grid item xs={12} sm={3}>
+            <Stack spacing={2}>
+              <Box sx={{ display: "flex", justifyContent: "center" }}>
+                <Stack spacing={1} alignItems="center">
+                  <Typography variant="body1" color="#2890d0">
+                    Spain
+                  </Typography>
+                  <br />
+                  <CircularProgress
+                    variant="determinate"
+                    sx={{
+                      color: "#06C0B3",
+                    }}
+                    size={180}
+                    thickness={4}
+                    {...props}
+                    value={90}
+                  />
+                  <br />
+                  <Typography variant="body2">Overall Compa -ratio</Typography>
+                  <br />
+                </Stack>
+              </Box>
+            </Stack>
+          </Grid>
+        </Grid>
       </CardContent>
+
+      <Grid
+        container
+        spacing={0}
+        alignItems="center"
+        justifyContent="space-evenly"
+      >
+        <Grid item xs={12} sm={11}>
+          <Card
+            sx={{
+              display: "flex",
+              backgroundColor: "#289650",
+              alignItems: "center",
+            }}
+          >
+            <CardContent sx={{ flex: "1 0 auto" }}>
+              <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+                <Avatar
+                  sx={{ height: "25px", width: "20px", alignItems: "left" }}
+                  src={NetworkIcon}
+                  variant="square"
+                />
+                <Typography variant="body2" color="#ffffff" >
+                  <b>MORE DATA, MORE VALUE</b>
+                </Typography>
+                <Divider
+                  orientation="vertical"
+                  flexItem
+                  sx={{ position: "relative" }}
+                />
+                <Typography variant="caption" color="#ffffff" >
+                  Over 23 million employees & over 150 countries | across
+                  27000 organisations
+                </Typography>
+              </Box>
+            </CardContent>
+          </Card>
+        </Grid>
+      </Grid>
     </Card>
   );
 };
