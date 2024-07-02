@@ -1,16 +1,28 @@
 import * as React from "react";
 import TextField, { StandardTextFieldProps } from "@mui/material/TextField";
 
-export interface IGlobalTextField extends StandardTextFieldProps {
+export interface IGlobalTextField {
+  name: string;
   type?: string;
+  onChange: Function;
+  label: string;
+  value: string;
+  placeholder?: string;
+  fullWidth:boolean;
 }
 
 const GlobalTextField = (props: IGlobalTextField): JSX.Element => {
-  const { type, ...rest } = props;
+ 
+  const { name, type, value, label, placeholder, onChange,fullWidth } = props;
   return (
     <TextField
-      {...rest}
-      type={props.type}
+      name={name}
+      type={type || "text"}
+      value={value}
+      placeholder={placeholder}
+      label={label}
+      onChange={(e) => onChange(e)}
+      fullWidth={fullWidth}
     />
   );
 };

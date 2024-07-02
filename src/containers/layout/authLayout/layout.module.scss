@@ -1,0 +1,9 @@
+.layoutContainer {
+    // min-height: calc(100vh - 46px);
+    display: flex;
+    flex-direction: column;
+    background:url(../../../assets/images/login/login_background.jpg), #32B561;
+    background-position: top right;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }

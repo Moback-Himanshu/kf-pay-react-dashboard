@@ -2,26 +2,28 @@ import * as React from "react";
 import Button from "@mui/material/Button";
 import {  ButtonBaseProps } from "@mui/material";
 
-export interface IGlobalButton extends ButtonBaseProps {
-  className?: string;
+export interface IGlobalButton  {
   buttonText: string;
   size: "small" | "medium" | "large";
   variant: "text" | "contained" | "outlined";
   color: "primary" | "secondary" | "success" | "error";
   disabled: boolean;
-  onClick: () => void;
+  onClick: Function;
+  fullWidth:boolean;
 }
 
 const GlobalButton = (props: IGlobalButton): JSX.Element => {
+  const { buttonText, size, variant, color, disabled, onClick,fullWidth } = props;
   return (
     <Button
-      color={props.color}
-      variant={props.variant}
-      disabled={props.disabled}
-      size={props.size}
-      onClick={() => props.onClick()}
+      color={color}
+      variant={variant}
+      disabled={disabled}
+      size={size}
+      onClick={() => onClick()}
+      fullWidth={fullWidth}
     >
-      {props.buttonText}
+      {buttonText}
     </Button>
   );
 };

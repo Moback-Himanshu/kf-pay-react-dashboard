@@ -3,16 +3,23 @@ import storage from 'redux-persist/lib/storage';
 import { combineReducers } from 'redux';
 import { persistReducer, persistStore } from 'redux-persist';
 import themeReducer from './slices/themeSlice';
-
+import userInfoSlice from './slices/userInfoSlice';
+import authenticationSlice from './slices/authenticationSlice';
+import countryListSlice  from './slices/countryListSlice';
+import compaRatioSlice from './slices/compaRatioSlice';
 
 const reducers = combineReducers({
-  theme: themeReducer
+  theme: themeReducer,
+  userInfo: userInfoSlice,
+  authentication: authenticationSlice,
+  countryList:countryListSlice,
+  compaRatio:compaRatioSlice
 });
 
 const persistConfig = {
   key: 'root',
   storage,
-  whitelist: ['theme'],
+  // whitelist: ['theme'],
 };
 
 const persistedReducer = persistReducer(persistConfig, reducers);
@@ -24,7 +31,6 @@ export const store = configureStore({
   devTools: isDevelopment,
   middleware: (getDefaultMiddleware) => getDefaultMiddleware({ immutableCheck: false }),
 });
-
 
 export const persistor = persistStore(store)
 export type AppDispatch = typeof store.dispatch;

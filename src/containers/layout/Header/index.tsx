@@ -18,16 +18,22 @@ import AvatarIcon from "../../../assets/images/avatar.svg";
 import SettingIcon from "../../../assets/images/setting.svg";
 import ReactangleIcon from "../../../assets/images/rectangle.svg";
 import { ReactComponent as KfPay } from "../../../assets/images/kf-pay.svg";
+import { useSelector } from "react-redux";
+import { editData } from "../../../services/apiService";
+import useAppDispatch from "../../../hooks/use-app-dispatch";
+import { AppDispatch, persistor } from "../../../redux/store";
+import { useNavigate } from "react-router-dom";
+import { logout } from "../../../redux/slices/authenticationSlice";
 
 const settings = ["Profile", "Logout"];
 
 const Header = () => {
-  const [anchorElNav, setAnchorElNav] = useState(
-    null
-  );
-  const [anchorElUser, setAnchorElUser] = useState(
-    null
-  );
+
+  const dispatch: AppDispatch = useAppDispatch();
+  const navigate = useNavigate();
+  const userInfo = useSelector((state: any) => state.userInfo.userInfo);
+  const [anchorElNav, setAnchorElNav] = useState(null);
+  const [anchorElUser, setAnchorElUser] = useState(null);
 
   const handleOpenNavMenu = (event: any) => {
     setAnchorElNav(event.currentTarget);
@@ -43,7 +49,20 @@ const Header = () => {
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
-
+  const handleLogout = async () => {
+    try {
+      const responseData = await editData(process.env.REACT_APP_DOMAIN_URL + "/v1/actions/logout",{})
+      console.log('response----',responseData)
+      dispatch(logout(responseData.data));
+      await persistor.flush();
+      localStorage.removeItem('authToken'); 
+      localStorage.clear();
+      navigate("/");
+    } catch (error) {
+      console.error("Error during login:", error);
+    }
+    handleCloseUserMenu(); 
+  };
   return (
     <>
       <AppBar
@@ -77,7 +96,7 @@ const Header = () => {
                   variant="body1"
                   sx={{ display: { xs: "none", sm: "block" } }}
                 >
-                  Hi, Himanshu
+                  Hi, {userInfo.firstName}
                 </Typography>
 
                 <Box display="flex" alignItems="center">
@@ -111,8 +130,20 @@ const Header = () => {
                     open={Boolean(anchorElUser)}
                     onClose={handleCloseUserMenu}
                   >
-                    {settings.map((setting) => (
+                    {/* {settings.map((setting) => (
                       <MenuItem key={setting} onClick={handleCloseUserMenu}>
+                        <Typography textAlign="center">{setting}</Typography>
+                      </MenuItem>
+                    ))} */}
+                    {settings.map((setting) => (
+                      <MenuItem
+                        key={setting}
+                        onClick={
+                          setting === "Logout"
+                            ? handleLogout
+                            : handleCloseUserMenu
+                        }
+                      >
                         <Typography textAlign="center">{setting}</Typography>
                       </MenuItem>
                     ))}
@@ -139,7 +170,7 @@ const Header = () => {
                       >
                         <Avatar
                           alt="Rectangle"
-                          src={ReactangleIcon} 
+                          src={ReactangleIcon}
                           variant="square"
                           sx={{
                             height: "16px",
@@ -159,7 +190,7 @@ const Header = () => {
           </Toolbar>
         </Container>
       </AppBar>
-	  <Divider variant="middle" />
+      <Divider variant="middle" />
       {/* <AppBar
         position="static"
         style={{ background: "transparent", boxShadow: "none" }}
