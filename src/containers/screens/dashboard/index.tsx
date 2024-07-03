@@ -4,29 +4,26 @@ import MyMarketCard from "../../../components/MyMarketCard";
 import GlobalPayLandscape from "../../../components/GlobalPayLandscape";
 import SingleJobCard from "../../../components/SingleJobCard";
 import IndustryNews from "../../../components/IndustryNews";
+import ListenCard from "../../../components/ListenCard";
 import { Box, Grid, Link, Typography } from "@mui/material";
 import useAppDispatch from "../../../hooks/use-app-dispatch";
 import { AppDispatch } from "../../../redux/store";
 import { setActionUserInfo } from "../../../redux/slices/userInfoSlice";
 import { getData } from "../../../services/apiService";
 import { useSelector } from "react-redux";
-import { setCountryList } from "../../../redux/slices/countryListSlice";
 import {
   setCompaRatio,
 } from "../../../redux/slices/compaRatioSlice";
 
-let countriesWithCompRatio: any;
 
 const Dashboard = (props: any) => {
   const user = useSelector((state: any) => state.authentication);
   const userInfo = useSelector((state: any) => state.userInfo.userInfo);
-  const countryList = useSelector((state: any) => state.countryList.countryList);
   const compaRatioList = useSelector((state: any) => state.compaRatio.compaRatio);
   const dispatch: AppDispatch = useAppDispatch();
 
-  const firstCountry = countryList && countryList.length > 0 ? countryList[0].name : "";
-  console.log("countryList----", firstCountry);
-  console.log(countryList);
+  const firstCountryName = compaRatioList && compaRatioList.length > 0 ? compaRatioList[0].countryName : "";
+  const firstCountryCompaRatio = compaRatioList && compaRatioList.length > 0 ? compaRatioList[0].compratiopercent : "";
 
   const getUserData = useCallback(async () => {
     try {
@@ -45,60 +42,20 @@ const Dashboard = (props: any) => {
         process.env.REACT_APP_DOMAIN_URL +
           `/v1/hrms/payhub/compratios?userId=${user.loginInfo.userId}&clientId=${userInfo.companyId}`
       );
-      console.log("responseData Progress:", responseData);
       dispatch(setCompaRatio(responseData.data.getClientCompList));
     } catch (error) {
       console.error("Error during login:", error);
     }
   }, [dispatch, user.loginInfo.userId,userInfo.companyId]);
 
-  const getCountries = useCallback(async () => {
-    try {
-      const responseData = await getData(
-        process.env.REACT_APP_DOMAIN_URL +
-          `/v1/hrms/payhub/actions/useraccesscountry`
-      );
-      console.log(responseData);
-      dispatch(setCountryList(responseData.data.countries));
-    } catch (error) {
-      console.error("Error during login:", error);
-    }
-  }, []);
-
-
-  const getCompRatioForCountry = useCallback((countryId: any) => {
-    const compRatioObject = compaRatioList.find(
-      (item: any) => item.countryId === countryId.toString()
-    );
-    // console.log(compRatioObject);
-    return compRatioObject ? compRatioObject.compratiopercent : 0;
-  }, [compaRatioList]);
-
-
-  const getCompRatioList = useCallback(async () => {
-    const updatedCountriesWithCompRatio = await Promise.all(
-      countryList.map(async (country: any) => ({
-        ...country,
-        compratiopercent: await getCompRatioForCountry(country.id),
-      }))
-    );
-    countriesWithCompRatio = updatedCountriesWithCompRatio;
-  }, [countryList, getCompRatioForCountry]);
 
   useEffect(() => {
     if (user.authToken) {
-      // console.log("hello");
       getUserData();
-      getCountries();
       getProgressData();
     }
-  }, [user.authToken, getUserData, getCountries, getProgressData]);
+  }, [user.authToken, getUserData, getProgressData ]);
 
-  useEffect(() => {
-    if (countryList.length > 0) {
-      getCompRatioList();
-    }
-  }, [countryList, getCompRatioList]);
 
   return (
     <div>
@@ -131,10 +88,11 @@ const Dashboard = (props: any) => {
             />
           </Grid>
           <Grid item xs={12} md={8}>
-            {countryList && countryList.length > 0 ? (
+            {compaRatioList && compaRatioList.length > 0 ? (
               <MyMarketCard
-                firstCountry={firstCountry}
-                countriesWithCompRatio={countriesWithCompRatio}
+                firstCountry={firstCountryName}
+                firstCountryCompaRatio={firstCountryCompaRatio}
+                countriesWithCompRatio={compaRatioList}
               />
             ) : (
               <p>Loading...</p>
@@ -147,9 +105,15 @@ const Dashboard = (props: any) => {
                 paragraph="The reports formerly published in the 'Landscape' section of PayNet are now available in KF Pay! Click below to download the global versions of these reports."
               />
             </Grid>
-            <Grid item xs={12} spacing={1}>
+            <Grid item xs={12} spacing={1} sx={{ marginBottom: "20px" }}>
               <IndustryNews
                 title="INDUSTRY NEWS"
+                paragraph="The reports formerly published in the 'Landscape' section of PayNet are now available in KF Pay! Click below to download the global versions of these reports."
+              />
+            </Grid>
+            <Grid item xs={12} spacing={1}>
+              <ListenCard
+                title="GLOBAL PAY LANDSCAPES"
                 paragraph="The reports formerly published in the 'Landscape' section of PayNet are now available in KF Pay! Click below to download the global versions of these reports."
               />
             </Grid>
@@ -159,5 +123,4 @@ const Dashboard = (props: any) => {
     </div>
   );
 };
-
 export default Dashboard;

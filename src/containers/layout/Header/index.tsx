@@ -52,7 +52,7 @@ const Header = () => {
   const handleLogout = async () => {
     try {
       const responseData = await editData(process.env.REACT_APP_DOMAIN_URL + "/v1/actions/logout",{})
-      console.log('response----',responseData)
+      // console.log('response----',responseData)
       dispatch(logout(responseData.data));
       await persistor.flush();
       localStorage.removeItem('authToken'); 

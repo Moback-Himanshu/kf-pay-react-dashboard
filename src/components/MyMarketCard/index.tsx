@@ -17,25 +17,23 @@ import NetworkIcon from "../../assets/images/network.svg";
 import ComparatioIcon from "../../assets/images/compa-ratio.svg";
 import GlobalSwitchButton from "../SwitchButton/Index";
 import GlobalDropdown from "../Dropdown";
-// import CircularChart from "./CircularProgress";
 import ProgressData from "./ProgressData";
 import { useSelector } from "react-redux";
 
 interface IMyMarketCardProps {
-  countriesWithCompRatio: [];
-  firstCountry:string;
+  countriesWithCompRatio: [] ;
+  firstCountry: string;
+  firstCountryCompaRatio:string;
 }
 
 const MyMarketCard = (props: IMyMarketCardProps): JSX.Element => {
-  const {  countriesWithCompRatio, firstCountry } = props;
-  console.log(countriesWithCompRatio);
+  const { countriesWithCompRatio, firstCountry,firstCountryCompaRatio } = props;
+
   const [loading, setLoading] = useState(false);
   const [dropdownValue, setDropdownValue] = useState(1);
   const [circularValue, setCircularValue] = useState(0);
 
-const countriesWithCompRatioList = countriesWithCompRatio?.slice(1);
-console.log(countriesWithCompRatioList);
-
+  const countriesWithCompRatioList = countriesWithCompRatio?.slice(1);
 
   const onChange = () => {
     setLoading(!loading);
@@ -93,7 +91,15 @@ console.log(countriesWithCompRatioList);
         >
           <Grid item xs={12} sm={5}>
             <Stack spacing={2}>
-              <ProgressData key={224} comparatiopercent={72}/>
+              <Box sx={{ display: "flex", justifyContent: "right" }}>
+                <ProgressData
+                  key={225}
+                  comparatiopercent={firstCountryCompaRatio}
+                  width="190px"
+                  height="191px"
+                  size={188}
+                />
+              </Box>
             </Stack>
           </Grid>
           <Divider
@@ -167,41 +173,47 @@ console.log(countriesWithCompRatioList);
         <Divider />
         <br />
         <br />
-
         <Grid
           container
           spacing={1}
           alignItems="center"
           justifyContent="space-evenly"
         >
+          {countriesWithCompRatioList?.map((country: any) => (
+            <>
+              <Grid item xs={12} sm={3}>
+                <Stack spacing={2}>
+                  <Box sx={{ display: "flex", justifyContent: "center" }}>
+                    <Stack spacing={1} alignItems="center">
+                      <Typography variant="body1" color="#2890d0">
+                        {country.countryName}
+                      </Typography>
+                      <br />
 
-{countriesWithCompRatioList?.map((country:any, index:any) => (
-<>
-          <Grid item xs={12} sm={3}>
-            <Stack spacing={2}>
-              <Box sx={{ display: "flex", justifyContent: "center" }}>
-                <Stack spacing={1} alignItems="center">
-                  <Typography variant="body1" color="#2890d0">
-                    {country.name}
-                  </Typography>
-                  <br />
-                  {/* <ProgressData /> */}
-                  <ProgressData key={country.id} comparatiopercent={country?.compratiopercent || 0} />
-                  {/* // <ProgressData comparatiopercent={country.compratiopercent}/> */}
-                
-                  <Typography variant="body2">Overall Compa -ratio</Typography>
-                  <br />
+                      <ProgressData
+                        key={country.id}
+                        comparatiopercent={country?.compratiopercent || 0}
+                        width="152px"
+                        height="153px"
+                        size={150}
+                      />
+                      <Typography variant="body2">
+                        Overall Compa -ratio
+                      </Typography>
+                      <br />
+                    </Stack>
+                  </Box>
                 </Stack>
-              </Box>
-            </Stack>
-            
-          </Grid>
-          {/* {index !== countryList.length - 2 && ( */}
-            <Divider orientation="vertical" flexItem sx={{ position: "relative" }} />
-          {/* )} */}
-          <Divider/>
-          
-        </>
+              </Grid>
+              {/* {index !== countryList.length - 2 && ( */}
+              <Divider
+                orientation="vertical"
+                flexItem
+                sx={{ position: "relative" }}
+              />
+              {/* )} */}
+              <Divider />
+            </>
           ))}
         </Grid>
       </CardContent>
