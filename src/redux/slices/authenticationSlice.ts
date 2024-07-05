@@ -35,15 +35,11 @@ export const authenticationSlice = createSlice({
 			state.authToken = action.payload.authToken;
 			state.loginInfo = action.payload;
 		},
-		// Use the PayloadAction type to declare the contents of `action.payload`
-		setIsUserLoggedIn: (state, action: PayloadAction<boolean>) => {
-			state.isUserAuthenticated = action.payload;
-			state.authToken = action.payload;
-		}
+	
 	},
 });
 
-export const { login, logout, setIsUserLoggedIn } = authenticationSlice.actions;
+export const { login, logout } = authenticationSlice.actions;
 // Create and export the selector:
 export const selectAuthentication = (state: RootState) => state.authentication.isUserAuthenticated;
 export const selectAuthorization = (state: RootState) => state.authentication.authToken;

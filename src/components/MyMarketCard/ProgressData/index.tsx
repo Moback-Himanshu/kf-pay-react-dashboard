@@ -1,11 +1,8 @@
 import React, { useState } from "react";
 import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
 import CircularProgress from "@mui/material/CircularProgress";
 import Typography from "@mui/material/Typography";
-import { Avatar, IconButton, Paper } from "@mui/material";
-import ComparatioIcon from "../../../assets/images/compa-ratio.svg";
-
+import {  Paper } from "@mui/material";
 interface ICompaRatioProps {
   comparatiopercent: any;
   width: string | number;
@@ -21,7 +18,6 @@ const CircularProgressWithLabelLocal = (props: {
 }): JSX.Element => {
   const { value, width, height, size } = props;
   const progressValue = Math.min(Math.max(value, 0), 100);
-  console.log(value);
   return (
     <Box sx={{ position: "relative", display: "inline-flex" }}>
   <Paper
@@ -37,8 +33,15 @@ const CircularProgressWithLabelLocal = (props: {
       position: "relative", 
     }}
   >
-    {value === 0 ? (
-      <Typography variant="body1">No data to display</Typography>
+    {value === 0 || null? (
+      <>
+       <CircularProgress
+       variant="determinate"
+       size={size === 188 ? (size-37) :(size- 16)} 
+       value={100} 
+       sx={{ color: '#ecf0f0', position: "absolute" }}
+     />
+      <Typography variant="body2" >No data to<br/>&nbsp; display</Typography></>
     ) : (
       <>
         {value < 100 ? (
@@ -60,7 +63,7 @@ const CircularProgressWithLabelLocal = (props: {
             />
             <CircularProgress
               variant="determinate"
-              size={size - 30} 
+              size={size === 188 ? (size-37) :(size- 32)} 
               value={100} 
               sx={{ color: '#06c0b3', position: "absolute" }}
             />
@@ -79,56 +82,13 @@ const CircularProgressWithLabelLocal = (props: {
           }}
         >
           <Typography variant="h4" >
-            {`${Math.round(value)}%`}
+            {value}%
           </Typography>
         </Box>
       </>
     )}
   </Paper>
 </Box>
-    // <Box sx={{ position: "relative", display: "inline-flex" }}>
-    //   <Paper
-    //     sx={{
-    //       width: width,
-    //       height: height,
-    //       borderRadius: "50%",
-    //       backgroundColor: "#ffffff",
-    //       boxShadow: "0px 2px 5px rgba(0, 0, 0, 0.9)",
-    //       display: "flex",
-    //       justifyContent: "center",
-    //       alignItems: "center",
-    //     }}
-    //   >
-    //     {value === 0 ? (
-    //       <Typography variant="body1">No data to display</Typography>
-    //     ) : (
-    //       <>
-    //         <CircularProgress
-    //           variant="determinate"
-    //           size={size}
-    //           value={progressValue}
-    //           sx={{color:'#06c0b3'}}
-    //         />
-    //         <Box
-    //           sx={{
-    //             top: 0,
-    //             left: 0,
-    //             bottom: 0,
-    //             right: 0,
-    //             position: "absolute",
-    //             display: "flex",
-    //             alignItems: "center",
-    //             justifyContent: "center",
-    //           }}
-    //         >
-    //           <Typography variant="h4" component="div">
-    //             {`${Math.round(props.value)}%`}
-    //           </Typography>
-    //         </Box>
-    //       </>
-    //     )}
-    //   </Paper>
-    // </Box>
   );
 };
 

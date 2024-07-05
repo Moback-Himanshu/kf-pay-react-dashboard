@@ -14,24 +14,22 @@ import {
 import HelpIcon from "../../assets/images/help.svg";
 import UploadIcon from "../../assets/images/upload.svg";
 import NetworkIcon from "../../assets/images/network.svg";
-import ComparatioIcon from "../../assets/images/compa-ratio.svg";
 import GlobalSwitchButton from "../SwitchButton/Index";
 import GlobalDropdown from "../Dropdown";
 import ProgressData from "./ProgressData";
-import { useSelector } from "react-redux";
 
 interface IMyMarketCardProps {
   countriesWithCompRatio: [] ;
   firstCountry: string;
+  firstCountryId:string;
   firstCountryCompaRatio:string;
 }
 
 const MyMarketCard = (props: IMyMarketCardProps): JSX.Element => {
-  const { countriesWithCompRatio, firstCountry,firstCountryCompaRatio } = props;
+  const { countriesWithCompRatio, firstCountry,firstCountryCompaRatio,firstCountryId } = props;
 
   const [loading, setLoading] = useState(false);
   const [dropdownValue, setDropdownValue] = useState(1);
-  const [circularValue, setCircularValue] = useState(0);
 
   const countriesWithCompRatioList = countriesWithCompRatio?.slice(1);
 
@@ -93,10 +91,10 @@ const MyMarketCard = (props: IMyMarketCardProps): JSX.Element => {
             <Stack spacing={2}>
               <Box sx={{ display: "flex", justifyContent: "right" }}>
                 <ProgressData
-                  key={225}
+                  key={firstCountryId}
                   comparatiopercent={firstCountryCompaRatio}
-                  width="190px"
-                  height="191px"
+                  width="195px"
+                  height="193px"
                   size={188}
                 />
               </Box>
@@ -189,13 +187,12 @@ const MyMarketCard = (props: IMyMarketCardProps): JSX.Element => {
                         {country.countryName}
                       </Typography>
                       <br />
-
                       <ProgressData
                         key={country.id}
                         comparatiopercent={country?.compratiopercent || 0}
-                        width="152px"
-                        height="153px"
-                        size={150}
+                        width="159px"
+                        height="158px"
+                        size={153}
                       />
                       <Typography variant="body2">
                         Overall Compa -ratio

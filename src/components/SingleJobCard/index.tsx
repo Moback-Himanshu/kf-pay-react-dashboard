@@ -1,15 +1,13 @@
 import * as React from "react";
 import KeyIcon from "../../assets/images/keyIcon.svg";
-// import UploadIcon from "../../assets/images/upload.svg";
 import {
   Avatar,
-  Box,
   Card,
   CardActions,
   CardContent,
   CardHeader,
   Divider,
-  Stack,Typography
+  Typography
 } from "@mui/material";
 
 const SingleJobCard = (props: any) => {

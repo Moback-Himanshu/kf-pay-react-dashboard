@@ -5,20 +5,14 @@ import GlobalFooter from "../Footer";
 import { useSelector } from "react-redux";
 import { Outlet } from "react-router-dom";
 
-interface Props {
-  children: JSX.Element[] | JSX.Element;
-}
-
-const MainLayout = () => {
+  const MainLayout = () => {
   const user = useSelector((state: any) => state.authentication);
-  const isUserAuthenticated = user.isisUserAuthenticated
-//  console.log('isUserAuthenticated--', isUserAuthenticated);
+  const isUserAuthenticated = user.isisUserAuthenticated;
+
   return (
     <div className={styles.layoutContainer}>
-    {/* {isUserAuthenticated ?  <GlobalHeader /> : ''} */}
-      <GlobalHeader  />
-      <Outlet />
-        {/* <div className={styles.content}>{children}</div> */}
+      <GlobalHeader />
+       <Outlet />
       <GlobalFooter />
     </div>
   );
